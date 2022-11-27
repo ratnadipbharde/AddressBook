@@ -4,24 +4,27 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("\t\t\tWelcome to Address Book Program\n" +
                 "--------------------------------------------------------");
-        Contact contact = new Contact();
+        AddressBook addressBook = new AddressBook();
         Scanner sc = new Scanner(System.in);
-        System.out.println("First Name : ");
-        contact.setFirstName(sc.next());
-        System.out.println("Last Name : ");
-        contact.setLastName(sc.next());
-        System.out.println("Address : ");
-        contact.setAddress(sc.next());
-        System.out.println("City : ");
-        contact.setCity(sc.next());
-        System.out.println("State : ");
-        contact.setState(sc.next());
-        System.out.println("zip : ");
-        contact.setZip(sc.next());
-        System.out.println("Phone Number : ");
-        contact.setPhoneNumber(sc.next());
-        System.out.println("Email : ");
-        contact.setEmail(sc.next());
-        System.out.println(contact);
+        int flag = 1;
+        while (flag == 1) {
+            System.out.print("\n1. Show all contact\n2. Add Contact\n0. Exit\n Enter Your Choice:");
+            switch (sc.next()) {
+                case "1":
+                    addressBook.showContacts();
+                    flag = 1;
+                    break;
+                case "2":
+                    addressBook.addContact();
+                    flag = 1;
+                    break;
+                case "0":
+                    flag = 0;
+                    break;
+                default:
+                    System.out.println("invalid input....");
+                    flag = 1;
+            }
+        }
     }
 }
