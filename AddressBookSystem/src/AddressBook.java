@@ -6,29 +6,65 @@ public class AddressBook {
 
     public void addContact() {
         System.out.println("--------------------------------------------------------" + "\nAdd Contact Details\n--------------------------------------------------------");
+        System.out.print("How many Contact you want to Add:");
         Scanner sc = new Scanner(System.in);
-        Contact contact = new Contact();
-        System.out.print("First Name : ");
-        contact.setFirstName(sc.next());
-        System.out.print("Last Name : ");
-        contact.setLastName(sc.next());
-        System.out.print("Address : ");
-        contact.setAddress(sc.next());
-        System.out.print("City : ");
-        contact.setCity(sc.next());
-        System.out.print("State : ");
-        contact.setState(sc.next());
-        System.out.print("zip : ");
-        contact.setZip(sc.next());
-        System.out.print("Phone Number : ");
-        contact.setPhoneNumber(sc.next());
-        System.out.print("Email : ");
-        contact.setEmail(sc.next());
-        addressBookList.add(contact);
+        int number = sc.nextInt();
+        for (int i = 0; i < number; i++) {
+            System.out.println("----------------------------------\nContact : " + (i + 1) + "" +
+                    "\n----------------------------------");
+            Contact contact = new Contact();
+            System.out.print("First Name : ");
+            contact.setFirstName(sc.next());
+            System.out.print("Last Name : ");
+            contact.setLastName(sc.next());
+            System.out.print("Address : ");
+            contact.setAddress(sc.next());
+            System.out.print("City : ");
+            contact.setCity(sc.next());
+            System.out.print("State : ");
+            contact.setState(sc.next());
+            System.out.print("zip : ");
+            contact.setZip(sc.next());
+            System.out.print("Phone Number : ");
+            contact.setPhoneNumber(sc.next());
+            System.out.print("Email : ");
+            contact.setEmail(sc.next());
+            for (int j = 0; j < addressBookList.size(); j++) {
+                if (addressBookList.get(j).getFirstName().equals(contact.getFirstName()) && addressBookList.get(j).getLastName().equals(contact.getLastName())) {
+                    System.out.println("contact already exist..");
+                    i--;
+                    continue;
+                }
+            }
+            addressBookList.add(contact);
+        }
         showContacts();
         System.out.println("\nadded successfully..... \n");
     }
-    
+
+    public void deleteContact() {
+        System.out.println("--------------------------------------------------------" + "\nDelete Contact Details\n--------------------------------------------------------");
+        Contact contact = new Contact(); //object create for Contact
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\nsearch detail for edit.........");
+        System.out.println("Enter First Name : ");
+        String firstName = sc.next();
+        System.out.println("Enter Last Name : ");
+        String lastName = sc.next();
+        for (int i = 0; i < addressBookList.size(); i++) {
+            String fName = addressBookList.get(i).getFirstName();
+            String lName = addressBookList.get(i).getLastName();
+
+            if (firstName.equals(fName) && lastName.equals(lName)) {
+                System.out.println("Contact found.........");
+                addressBookList.remove(i);
+                System.out.println("\nDelete successfully..... \n");
+                return;
+            }
+        }
+        System.out.println("contact not found hence deletion rejected");
+    }
+
     public void editContact() {
         System.out.println("--------------------------------------------------------" + "\nEdit Contact Details\n--------------------------------------------------------");
         Contact contact = new Contact(); //object create for Contact
