@@ -2,6 +2,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddressBook {
+    static final int FIRSTNAME=1;
+    static final int LASTNAME=2;
+    static final int ADDRESS=3;
+    static final int CITY=4;
+    static final int STATE=5;
+    static final int ZIP=6;
+    static final int PHONENUMBER=7;
+    static final int EMAIL=8;
     private ArrayList<Contact> addressBookList = new ArrayList<>();
 
     public void addContact() {
@@ -77,50 +85,50 @@ public class AddressBook {
             if (firstName.equals(fName)) {
                 System.out.println("Contact found.........");
                 System.out.print("\n1. First Name\n2. Last Name\n3. Address\n" + "4. City\n5. State\n6. zip\n7. Phone Number\n8. Email\ninsert choice to edit Contact details : ");
-                switch (sc.next()) {
-                    case "1":
+                switch (sc.nextInt()) {
+                    case FIRSTNAME:
                         System.out.print("Name : ");
                         addressBookList.get(i).setFirstName(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
                         break;
-                    case "2":
+                    case LASTNAME:
                         System.out.print("Last Name : ");
                         addressBookList.get(i).setLastName(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
                         break;
-                    case "3":
+                    case ADDRESS:
                         System.out.print("Address : ");
                         addressBookList.get(i).setAddress(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
                         break;
-                    case "4":
+                    case CITY:
                         System.out.print("City : ");
                         addressBookList.get(i).setCity(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
                         break;
-                    case "5":
+                    case STATE:
                         System.out.print("State : ");
                         addressBookList.get(i).setState(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
                         break;
-                    case "6":
+                    case ZIP:
                         System.out.print("zip : ");
                         addressBookList.get(i).setZip(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
                         break;
-                    case "7":
+                    case PHONENUMBER:
                         System.out.print("Phone Number : ");
                         addressBookList.get(i).setPhoneNumber(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
                         break;
-                    case "8":
+                    case EMAIL:
                         System.out.print("Email : ");
                         addressBookList.get(i).setEmail(sc.next());
                         showContacts();
