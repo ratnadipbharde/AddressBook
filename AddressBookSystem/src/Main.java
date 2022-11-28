@@ -5,6 +5,7 @@ public class Main {
         System.out.println("\t\t\tWelcome to Address Book Program\n" +
                 "--------------------------------------------------------");
         AddressBook addressBook = new AddressBook();
+        AddressBookFolder addressBookFolder=new AddressBookFolder();
         Scanner sc = new Scanner(System.in);
         int flag = 1;
         while (flag == 1) {
@@ -15,7 +16,7 @@ public class Main {
                     flag = 1;
                     break;
                 case "2":
-                    addressBook.addContact();
+                    addressBookFolder.addAddressBook();
                     flag = 1;
                     break;
                 case "3":

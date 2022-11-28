@@ -144,6 +144,6 @@ public class AddressBook {
 
     @Override
     public String toString() {
-        return "AddressBook{" + "addressBookList=" + addressBookList + '}';
+        return "\n" + addressBookList ;
     }
 }
