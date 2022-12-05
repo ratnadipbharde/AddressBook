@@ -2,14 +2,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddressBook {
-    static final int FIRSTNAME=1;
-    static final int LASTNAME=2;
-    static final int ADDRESS=3;
-    static final int CITY=4;
-    static final int STATE=5;
-    static final int ZIP=6;
-    static final int PHONENUMBER=7;
-    static final int EMAIL=8;
+    static final int FIRSTNAME = 1;
+    static final int LASTNAME = 2;
+    static final int ADDRESS = 3;
+    static final int CITY = 4;
+    static final int STATE = 5;
+    static final int ZIP = 6;
+    static final int PHONENUMBER = 7;
+    static final int EMAIL = 8;
     private ArrayList<Contact> addressBookList = new ArrayList<>();
 
     public void addContact() {
@@ -37,28 +37,15 @@ public class AddressBook {
             contact.setPhoneNumber(sc.next());
             System.out.print("Email : ");
             contact.setEmail(sc.next());
-            for (int j = 0; j < addressBookList.size(); j++) {
-                if (addressBookList.get(j).getFirstName().equals(contact.getFirstName()) && addressBookList.get(j).getLastName().equals(contact.getLastName())) {
-                    System.out.println("contact already exist..");
-                    i--;
-                    continue;
-                }
-            }
             addressBookList.add(contact);
         }
         showContacts();
         System.out.println("\nadded successfully..... \n");
     }
 
-    public void deleteContact() {
+    public void deleteContact(String firstName, String lastName) {
         System.out.println("--------------------------------------------------------" + "\nDelete Contact Details\n--------------------------------------------------------");
-        Contact contact = new Contact(); //object create for Contact
-        Scanner sc = new Scanner(System.in);
-        System.out.println("\nsearch detail for edit.........");
-        System.out.println("Enter First Name : ");
-        String firstName = sc.next();
-        System.out.println("Enter Last Name : ");
-        String lastName = sc.next();
+
         for (int i = 0; i < addressBookList.size(); i++) {
             String fName = addressBookList.get(i).getFirstName();
             String lName = addressBookList.get(i).getLastName();
@@ -73,13 +60,10 @@ public class AddressBook {
         System.out.println("contact not found hence deletion rejected");
     }
 
-    public void editContact() {
+    public int editContact(String firstName) {
         System.out.println("--------------------------------------------------------" + "\nEdit Contact Details\n--------------------------------------------------------");
-        Contact contact = new Contact(); //object create for Contact
         Scanner sc = new Scanner(System.in);
         System.out.println("\nsearch detail for edit.........");
-        System.out.print("Name : ");
-        String firstName = sc.next();
         for (int i = 0; i < addressBookList.size(); i++) {
             String fName = addressBookList.get(i).getFirstName();
             if (firstName.equals(fName)) {
@@ -91,54 +75,56 @@ public class AddressBook {
                         addressBookList.get(i).setFirstName(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
-                        break;
+                        return 1;
                     case LASTNAME:
                         System.out.print("Last Name : ");
                         addressBookList.get(i).setLastName(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
-                        break;
+                        return 1;
                     case ADDRESS:
                         System.out.print("Address : ");
                         addressBookList.get(i).setAddress(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
-                        break;
+                        return 1;
                     case CITY:
                         System.out.print("City : ");
                         addressBookList.get(i).setCity(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
-                        break;
+                        return 1;
                     case STATE:
                         System.out.print("State : ");
                         addressBookList.get(i).setState(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
-                        break;
+                        return 1;
                     case ZIP:
                         System.out.print("zip : ");
                         addressBookList.get(i).setZip(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
-                        break;
+                        return 1;
                     case PHONENUMBER:
                         System.out.print("Phone Number : ");
                         addressBookList.get(i).setPhoneNumber(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
-                        break;
+                        return 1;
                     case EMAIL:
                         System.out.print("Email : ");
                         addressBookList.get(i).setEmail(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
-                        break;
+                        return 1;
                     default:
                         System.out.println("invalid input");
                 }
             } else System.out.println("Contact Not available in Address Book.......");
+            return 0;
         }
+        return 0;
     }
 
     public void showContacts() {
@@ -152,6 +138,6 @@ public class AddressBook {
 
     @Override
     public String toString() {
-        return "\n" + addressBookList ;
+        return "\n" + addressBookList;
     }
 }

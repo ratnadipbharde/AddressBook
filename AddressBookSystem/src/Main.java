@@ -1,24 +1,23 @@
 import java.util.Scanner;
 
 public class Main {
-    public static final String EXIT ="0";
-    public static final String SHOWALLCONTACT="1";
-    public static final String ADDCONTACT="2";
-    public static final String EDITCONTACT="3";
-    public static final String DELETECONTACT ="4";
+    public static final int EXIT = 0;
+    public static final int SHOWALLCONTACT= 1;
+    public static final int ADDCONTACT= 2;
+    public static final int EDITCONTACT= 3;
+    public static final int DELETECONTACT = 4;
 
     public static void main(String[] args) {
         System.out.println("\t\t\tWelcome to Address Book Program\n" +
                 "--------------------------------------------------------");
-        AddressBook addressBook = new AddressBook();
         AddressBookFolder addressBookFolder=new AddressBookFolder();
         Scanner sc = new Scanner(System.in);
         int flag = 1;
         while (flag == 1) {
             System.out.print("\n1. Show all contact\n2. Add Contact\n3. Edit Contact\n4. Delete Contact\n0. Exit\n Enter Your Choice:");
-            switch (sc.next()) {
+            switch (sc.nextInt()) {
                 case SHOWALLCONTACT:
-                    addressBook.showContacts();
+                    addressBookFolder.showAddressbook();
                     flag = 1;
                     break;
                 case ADDCONTACT:
@@ -26,11 +25,11 @@ public class Main {
                     flag = 1;
                     break;
                 case EDITCONTACT:
-                    addressBook.editContact();
+                    addressBookFolder.editAddressBook();
                     flag = 1;
                     break;
                 case DELETECONTACT:
-                    addressBook.deleteContact();
+                    addressBookFolder.deleteAddressBook();
                     flag = 1;
                     break;
                 case EXIT:
