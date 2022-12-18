@@ -12,52 +12,62 @@ public class AddressBook {
     static final int EMAIL = 8;
     private ArrayList<Contact> addressBookList = new ArrayList<>();
 
-    public void addContact() {
-        System.out.println("--------------------------------------------------------" + "\nAdd Contact Details\n--------------------------------------------------------");
-        System.out.print("How many Contact you want to Add:");
+    public ArrayList<Contact> getAddressBookList() {
+        return addressBookList;
+    }
+
+    public void setAddressBookList(ArrayList<Contact> addressBookList) {
+        this.addressBookList = addressBookList;
+    }
+
+    public void addContact(String firstName) {
+        //  System.out.println("--------------------------------------------------------" + "\nAdd Contact Details\n--------------------------------------------------------");
+        // System.out.print("How many Contact you want to Add:");
         Scanner sc = new Scanner(System.in);
-        int number = sc.nextInt();
-        for (int i = 0; i < number; i++) {
-            System.out.println("----------------------------------\nContact : " + (i + 1) + "" +
-                    "\n----------------------------------");
-            Contact contact = new Contact();
-            System.out.print("First Name : ");
-            contact.setFirstName(sc.next());
-            System.out.print("Last Name : ");
-            contact.setLastName(sc.next());
-            System.out.print("Address : ");
-            contact.setAddress(sc.next());
-            System.out.print("City : ");
-            contact.setCity(sc.next());
-            System.out.print("State : ");
-            contact.setState(sc.next());
-            System.out.print("zip : ");
-            contact.setZip(sc.next());
-            System.out.print("Phone Number : ");
-            contact.setPhoneNumber(sc.next());
-            System.out.print("Email : ");
-            contact.setEmail(sc.next());
-            addressBookList.add(contact);
-        }
+        //   int number = sc.nextInt();
+//        for (int i = 0; i < number; i++) {
+//            System.out.println("----------------------------------\nContact : " + (i + 1) + "" +
+//                    "\n----------------------------------");
+        Contact contact = new Contact();
+//            System.out.print("First Name : ");
+//            String firstName=sc.next();
+
+        contact.setFirstName(firstName);
+        System.out.print("Last Name : ");
+        contact.setLastName(sc.next());
+        System.out.print("Address : ");
+        contact.setAddress(sc.next());
+        System.out.print("City : ");
+        contact.setCity(sc.next());
+        System.out.print("State : ");
+        contact.setState(sc.next());
+        System.out.print("zip : ");
+        contact.setZip(sc.next());
+        System.out.print("Phone Number : ");
+        contact.setPhoneNumber(sc.next());
+        System.out.print("Email : ");
+        contact.setEmail(sc.next());
+        addressBookList.add(contact);
+        //  }
         showContacts();
         System.out.println("\nadded successfully..... \n");
     }
 
-    public void deleteContact(String firstName, String lastName) {
+    public int deleteContact(String firstName, String lastName) {
         System.out.println("--------------------------------------------------------" + "\nDelete Contact Details\n--------------------------------------------------------");
 
         for (int i = 0; i < addressBookList.size(); i++) {
             String fName = addressBookList.get(i).getFirstName();
             String lName = addressBookList.get(i).getLastName();
-
             if (firstName.equals(fName) && lastName.equals(lName)) {
                 System.out.println("Contact found.........");
                 addressBookList.remove(i);
                 System.out.println("\nDelete successfully..... \n");
-                return;
+                return 1;
             }
         }
         System.out.println("contact not found hence deletion rejected");
+        return 0;
     }
 
     public int editContact(String firstName) {
@@ -128,13 +138,13 @@ public class AddressBook {
     }
 
     public void showContacts() {
-        System.out.println("\n----------------------Contact----------------------");
         for (int i = 0; i < addressBookList.size(); i++) {
             System.out.println("----------------------------------\nContact : " + (i + 1) + "\n----------------------------------");
-            System.out.println("\n" + addressBookList.get(i));
+            System.out.println(addressBookList.get(i));
         }
-        System.out.println("\n---------------------------------------------------");
+        System.out.println("----------------------------------");
     }
+
 
     @Override
     public String toString() {
