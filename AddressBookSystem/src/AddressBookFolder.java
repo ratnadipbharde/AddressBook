@@ -7,6 +7,33 @@ public class AddressBookFolder {
     private Map<String, AddressBook> addressBookMap = new HashMap<>();
     Scanner sc = new Scanner(System.in);
 
+    public void showAllContactByState(){
+        System.out.print("Enter State name :");
+        String stateName = sc.next();
+        Set<String> keys = addressBookMap.keySet();
+        isExistForContact(keys);
+        Iterator<String> it = keys.iterator();
+        while (it.hasNext()) {
+            String key = it.next();
+            AddressBook addressBook = addressBookMap.get(key);
+            List<Contact> collect = addressBook.getAddressBookList().stream().filter(contact -> Objects.equals(contact.getState(), stateName)).collect(Collectors.toList());
+            System.out.println(collect);
+        }
+    }
+
+    public void showAllContactByCity() {
+        System.out.print("Enter City name :");
+        String cityName = sc.next();
+        Set<String> keys = addressBookMap.keySet();
+        isExistForContact(keys);
+        Iterator<String> it = keys.iterator();
+        while (it.hasNext()) {
+            String key = it.next();
+            AddressBook addressBook = addressBookMap.get(key);
+            List<Contact> collect = addressBook.getAddressBookList().stream().filter(contact -> Objects.equals(contact.getCity(), cityName)).collect(Collectors.toList());
+            System.out.println(collect);
+        }
+    }
     public void editAddressBook() {
         System.out.println("Enter Name : ");
         String fName = sc.next();
@@ -58,7 +85,7 @@ public class AddressBookFolder {
                 String bookName = sc.next();
                 System.out.print("First Name : ");
                 firstName = sc.next();
-                if (isExist(firstName)) {
+                if (isExistForName(firstName)) {
                     System.out.println("already exixt");
                     return;
                 }
@@ -76,7 +103,7 @@ public class AddressBookFolder {
                 String name = sc.next();
                 System.out.print("First Name : ");
                 firstName = sc.next();
-                if (isExist(firstName)) {
+                if (isExistForName(firstName)) {
                     System.out.println("already exixt");
                 } else {
                     AddressBook addressBook = new AddressBook();
@@ -86,7 +113,7 @@ public class AddressBookFolder {
         }
     }
 
-    public boolean isExist(String firstName) {
+    public boolean isExistForName(String firstName) {
         Set<String> keys = addressBookMap.keySet();
         for (String key : keys) {
             AddressBook addressBook1 = addressBookMap.get(key);
@@ -97,6 +124,15 @@ public class AddressBookFolder {
             }
         }
         return false;
+    }
+    
+    public void isExistForContact(Set<String> keyes){
+        if (keyes.size()==0){
+            System.out.println("contact not found or addressbook is empty");
+        }
+        else {
+            System.out.println("contact found");
+        }
     }
 
     public void showAddressbook() {
