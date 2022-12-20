@@ -6,8 +6,8 @@ public class Main {
     public static final int ADDCONTACT= 2;
     public static final int EDITCONTACT= 3;
     public static final int DELETECONTACT = 4;
-    public static final int CONTACTBYCITY = 5;
-    public static final int CONTACTBYSTATE = 6;
+    public static final int VIEWCONTACTBYCITYORSTATE = 5;
+
 
     public static void main(String[] args) {
         System.out.println("\t\t\tWelcome to Address Book Program\n" +
@@ -16,7 +16,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int flag = 1;
         while (flag == 1) {
-            System.out.print("\n1. Show all contact\n2. Add Contact\n3. Edit Contact\n4. Delete Contact\n5. Show All Contact By City\n6.Show All Contact By State\n0. Exit\n Enter Your Choice:");
+            System.out.print("\n1. Show all contact.\n2. Add Contact.\n3. Edit Contact.\n4. Delete Contact.\n5. View Contact By City or State.\n0. Exit\n\n Enter Your Choice : ");
             switch (sc.nextInt()) {
                 case SHOWALLCONTACT:
                     addressBookFolder.showAddressbook();
@@ -34,12 +34,8 @@ public class Main {
                     addressBookFolder.deleteAddressBook();
                     flag = 1;
                     break;
-                case CONTACTBYCITY:
-                    addressBookFolder.showAllContactByCity();
-                    flag = 1;
-                    break;
-                case CONTACTBYSTATE:
-                    addressBookFolder.showAllContactByState();
+                case VIEWCONTACTBYCITYORSTATE:
+                    addressBookFolder.showAllContactByCityOrState();
                     flag = 1;
                     break;
                 case EXIT:

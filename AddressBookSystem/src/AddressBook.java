@@ -21,56 +21,56 @@ public class AddressBook {
     }
 
     public void addContact(String firstName) {
-        //  System.out.println("--------------------------------------------------------" + "\nAdd Contact Details\n--------------------------------------------------------");
-        // System.out.print("How many Contact you want to Add:");
+      //  System.out.println("--------------------------------------------------------" + "\nAdd Contact Details\n--------------------------------------------------------");
+       // System.out.print("How many Contact you want to Add:");
         Scanner sc = new Scanner(System.in);
-        //   int number = sc.nextInt();
+     //   int number = sc.nextInt();
 //        for (int i = 0; i < number; i++) {
 //            System.out.println("----------------------------------\nContact : " + (i + 1) + "" +
 //                    "\n----------------------------------");
-        Contact contact = new Contact();
+            Contact contact = new Contact();
 //            System.out.print("First Name : ");
 //            String firstName=sc.next();
 
-        contact.setFirstName(firstName);
-        System.out.print("Last Name : ");
-        contact.setLastName(sc.next());
-        System.out.print("Address : ");
-        contact.setAddress(sc.next());
-        System.out.print("City : ");
-        contact.setCity(sc.next());
-        System.out.print("State : ");
-        contact.setState(sc.next());
-        System.out.print("zip : ");
-        contact.setZip(sc.next());
-        System.out.print("Phone Number : ");
-        contact.setPhoneNumber(sc.next());
-        System.out.print("Email : ");
-        contact.setEmail(sc.next());
-        addressBookList.add(contact);
-        //  }
+            contact.setFirstName(firstName);
+            System.out.print("Last Name : ");
+            contact.setLastName(sc.next());
+            System.out.print("Address : ");
+            contact.setAddress(sc.next());
+            System.out.print("City : ");
+            contact.setCity(sc.next());
+            System.out.print("State : ");
+            contact.setState(sc.next());
+            System.out.print("zip : ");
+            contact.setZip(sc.next());
+            System.out.print("Phone Number : ");
+            contact.setPhoneNumber(sc.next());
+            System.out.print("Email : ");
+            contact.setEmail(sc.next());
+            addressBookList.add(contact);
+      //  }
         showContacts();
         System.out.println("\nadded successfully..... \n");
     }
 
-    public int deleteContact(String firstName, String lastName) {
+    public void deleteContact(String firstName, String lastName) {
         System.out.println("--------------------------------------------------------" + "\nDelete Contact Details\n--------------------------------------------------------");
 
         for (int i = 0; i < addressBookList.size(); i++) {
             String fName = addressBookList.get(i).getFirstName();
             String lName = addressBookList.get(i).getLastName();
+
             if (firstName.equals(fName) && lastName.equals(lName)) {
                 System.out.println("Contact found.........");
                 addressBookList.remove(i);
                 System.out.println("\nDelete successfully..... \n");
-                return 1;
+                return;
             }
         }
         System.out.println("contact not found hence deletion rejected");
-        return 0;
     }
 
-    public int editContact(String firstName) {
+    public boolean editContact(String firstName) {
         System.out.println("--------------------------------------------------------" + "\nEdit Contact Details\n--------------------------------------------------------");
         Scanner sc = new Scanner(System.in);
         System.out.println("\nsearch detail for edit.........");
@@ -85,62 +85,62 @@ public class AddressBook {
                         addressBookList.get(i).setFirstName(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
-                        return 1;
+                        return true;
                     case LASTNAME:
                         System.out.print("Last Name : ");
                         addressBookList.get(i).setLastName(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
-                        return 1;
+                        return true;
                     case ADDRESS:
                         System.out.print("Address : ");
                         addressBookList.get(i).setAddress(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
-                        return 1;
+                        return true;
                     case CITY:
                         System.out.print("City : ");
                         addressBookList.get(i).setCity(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
-                        return 1;
+                        return true;
                     case STATE:
                         System.out.print("State : ");
                         addressBookList.get(i).setState(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
-                        return 1;
+                        return true;
                     case ZIP:
                         System.out.print("zip : ");
                         addressBookList.get(i).setZip(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
-                        return 1;
+                        return true;
                     case PHONENUMBER:
                         System.out.print("Phone Number : ");
                         addressBookList.get(i).setPhoneNumber(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
-                        return 1;
+                        return true;
                     case EMAIL:
                         System.out.print("Email : ");
                         addressBookList.get(i).setEmail(sc.next());
                         showContacts();
                         System.out.println("\nedit successfully..... \n");
-                        return 1;
+                        return true;
                     default:
                         System.out.println("invalid input");
                 }
             } else System.out.println("Contact Not available in Address Book.......");
-            return 0;
+            return false;
         }
-        return 0;
+        return false;
     }
 
     public void showContacts() {
         for (int i = 0; i < addressBookList.size(); i++) {
             System.out.println("----------------------------------\nContact : " + (i + 1) + "\n----------------------------------");
-            System.out.println(addressBookList.get(i));
+            System.out.println( addressBookList.get(i));
         }
         System.out.println("----------------------------------");
     }
