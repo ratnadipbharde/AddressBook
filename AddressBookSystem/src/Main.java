@@ -23,7 +23,7 @@ public class Main {
         boolean b = true;
         while (b) {
             System.out.print("\n1. Show all contact.\n2. Add Contact.\n3. Edit Contact.\n4. Delete Contact." +
-                    "\n5. View Contact By City or State.\n6. View and Count Countact by city and State \n");
+                    "\n5. View Contact By City or State.\n6. View and Count Countact by city and State \n7.Write Text File\n8.Read Text File");
             switch (sc.nextInt()) {
                 case SHOWALLCONTACT:
                     addressBookFolder.showAddressbook();
@@ -42,6 +42,12 @@ public class Main {
                     break;
                 case VIEWANDCOUNTCONTACTBYCITYORSTATE:
                     addressBookFolder.viewContactsByCityOrStateMap();
+                    break;
+                case WRITEADDRESSOOKMAPINFILE:
+                    addressBookFolder.writeTextFile();
+                    break;
+                case READADDRESSOOKMAPINFILE:
+                    addressBookFolder.readTextFile();
                     break;
                 case EXIT:
                     b = false;

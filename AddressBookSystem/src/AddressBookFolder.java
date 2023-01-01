@@ -20,6 +20,60 @@ public class AddressBookFolder {
     private Map<String, List<Contact>> cityContactMap = new HashMap<>();
     Scanner sc = new Scanner(System.in);
 
+    final static String filePathForTxt = "addressbook.txt";
+
+    public void readTextFile() {
+        File file = new File(filePathForTxt);
+        FileReader fr;
+        try {
+            fr = new FileReader(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        BufferedReader br = new BufferedReader(fr);
+        String line;
+        while (true) {
+            try {
+                if ((line = br.readLine()) == null) break;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println(line);
+        }
+    }
+
+    public void writeTextFile() {
+        File addressbookFileCreate = new File(filePathForTxt);
+        try {
+            if (addressbookFileCreate.createNewFile()) {
+                System.out.println("file is created...");
+            } else {
+                System.out.println("File already exists...");
+            }
+        } catch (IOException e) {
+            System.out.println("File not create....");
+            throw new RuntimeException(e);
+        }
+        File file = new File(filePathForTxt);
+        BufferedWriter bf = null;
+        try {
+            bf = new BufferedWriter(new FileWriter(file));
+            for (Map.Entry<String, AddressBook> entry : addressBookMap.entrySet()) {
+                bf.write(entry.getKey() + ":" + entry.getValue());
+                bf.newLine();
+            }
+            bf.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bf.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+
     public void viewContactsByCityOrStateMap() {
         System.out.println("1. City \n2. State\n\nChoose option for view contacts :");
         int choice=sc.nextInt();
