@@ -10,10 +10,11 @@ public class Main {
     public static final int VIEWANDCOUNTCONTACTBYCITYORSTATE = 6;
     public static final int WRITEADDRESSOOKMAPINFILE = 7;
     public static final int READADDRESSOOKMAPINFILE = 8;
-    public static final int WRITEJSONFILE = 9;
-    public static final int READJSONFILE = 10;
-    public static final int WRITECSVFILE = 11;
-    public static final int READCSVFILE = 12;
+    public static final int WRITECSVFILE = 9;
+    public static final int READCSVFILE = 10;
+    public static final int WRITEJSONFILE = 11;
+    public static final int READJSONFILE = 12;
+
 
     public static void main(String[] args) {
         System.out.println("\t\t\tWelcome to Address Book Program\n" +
@@ -23,7 +24,7 @@ public class Main {
         boolean b = true;
         while (b) {
             System.out.print("\n1. Show all contact.\n2. Add Contact.\n3. Edit Contact.\n4. Delete Contact." +
-                    "\n5. View Contact By City or State.\n6. View and Count Countact by city and State \n7.Write Text File\n8.Read Text File");
+                    "\n5. View Contact By City or State.\n6. View and Count Countact by city and State \n7.Write Text File\n8.Read Text File\n9.Write Csv File\n10.Read Csv File");
             switch (sc.nextInt()) {
                 case SHOWALLCONTACT:
                     addressBookFolder.showAddressbook();
@@ -48,6 +49,12 @@ public class Main {
                     break;
                 case READADDRESSOOKMAPINFILE:
                     addressBookFolder.readTextFile();
+                    break;
+                case WRITECSVFILE:
+                    addressBookFolder.writeCsvFile();
+                    break;
+                case READCSVFILE:
+                    addressBookFolder.readCsvFile();
                     break;
                 case EXIT:
                     b = false;

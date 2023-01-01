@@ -21,6 +21,56 @@ public class AddressBookFolder {
     Scanner sc = new Scanner(System.in);
 
     final static String filePathForTxt = "addressbook.txt";
+    final static String filePathForCsv = "addressbook.csv";
+
+    public void readCsvFile(){
+        CSVReader reader = null;
+        try
+        {
+            reader = new CSVReader(new FileReader(filePathForCsv));
+            String [] nextLine;
+            while ((nextLine = reader.readNext()) != null)
+            {
+                for(String token : nextLine)
+                {
+                    System.out.print(token+" , ");
+                }
+                System.out.print("\n");
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        try {
+            assert reader != null;
+            reader.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void writeCsvFile()
+    {
+        File file = new File(filePathForCsv);
+        try {
+            FileWriter outputfile = new FileWriter(file);
+            CSVWriter writer = new CSVWriter(outputfile);
+            String[] header = { "Address-book Name","First Name", "Last Name", "Address", "City", "State", "Zip", "Phone Number", "Email" };
+            writer.writeNext(header);
+            for(String key :addressBookMap.keySet() ){
+                AddressBook addressBook= addressBookMap.get(key);
+                addressBook.getAddressBookList().forEach(contact -> {
+                    String[] data = { key, contact.getFirstName(),contact.getLastName(),contact.getAddress(),contact.getCity(),contact.getState(),contact.getZip(),contact.getPhoneNumber(),contact.getEmail()};
+                    writer.writeNext(data);
+                });
+            }
+            writer.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void readTextFile() {
         File file = new File(filePathForTxt);
