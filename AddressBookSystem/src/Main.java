@@ -24,7 +24,7 @@ public class Main {
         boolean b = true;
         while (b) {
             System.out.print("\n1. Show all contact.\n2. Add Contact.\n3. Edit Contact.\n4. Delete Contact." +
-                    "\n5. View Contact By City or State.\n6. View and Count Countact by city and State \n7.Write Text File\n8.Read Text File\n9.Write Csv File\n10.Read Csv File");
+                    "\n5. View Contact By City or State.\n6. View and Count Countact by city and State \n7.Write Text File\n8.Read Text File\n9.Write Csv File\n10.Read Csv File\n11.Write Json File\n12.Read Json File");
             switch (sc.nextInt()) {
                 case SHOWALLCONTACT:
                     addressBookFolder.showAddressbook();
@@ -55,6 +55,12 @@ public class Main {
                     break;
                 case READCSVFILE:
                     addressBookFolder.readCsvFile();
+                    break;
+                case WRITEJSONFILE:
+                    addressBookFolder.writeJsonFile();
+                    break;
+                case READJSONFILE:
+                    addressBookFolder.readJsonFile();
                     break;
                 case EXIT:
                     b = false;

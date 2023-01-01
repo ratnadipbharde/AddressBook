@@ -1,6 +1,7 @@
 import com.google.gson.Gson;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,8 +14,8 @@ import java.util.stream.Collectors;
 public class AddressBookFolder {
     static final int EXISTINGADDRESSBOOK = 1;
     static final int NEWADDRESSBOOK = 2;
-    static final int CITY=1;
-    static final int STATE=2;
+    static final int CITY = 1;
+    static final int STATE = 2;
 
     private Map<String, AddressBook> addressBookMap = new HashMap<>();
     private Map<String, List<Contact>> cityContactMap = new HashMap<>();
@@ -22,24 +23,37 @@ public class AddressBookFolder {
 
     final static String filePathForTxt = "addressbook.txt";
     final static String filePathForCsv = "addressbook.csv";
+    final static String filePathForJson = "addressbook.json";
+    public void readJsonFile() {
+        Gson gson = new Gson();
+        try (Reader reader = Files.newBufferedReader(Paths.get(filePathForJson))) {
+            HashMap map = gson.fromJson(reader, HashMap.class);
+            map.forEach((s, addressBook) -> System.out.println(s + "=" + addressBook));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-    public void readCsvFile(){
+    public void writeJsonFile() {
+        try (Writer writer = new FileWriter(filePathForJson)) {
+            new Gson().toJson(addressBookMap, writer);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void readCsvFile() {
         CSVReader reader = null;
-        try
-        {
+        try {
             reader = new CSVReader(new FileReader(filePathForCsv));
-            String [] nextLine;
-            while ((nextLine = reader.readNext()) != null)
-            {
-                for(String token : nextLine)
-                {
-                    System.out.print(token+" , ");
+            String[] nextLine;
+            while ((nextLine = reader.readNext()) != null) {
+                for (String token : nextLine) {
+                    System.out.print(token + " , ");
                 }
                 System.out.print("\n");
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         try {
@@ -50,24 +64,22 @@ public class AddressBookFolder {
         }
     }
 
-    public void writeCsvFile()
-    {
+    public void writeCsvFile() {
         File file = new File(filePathForCsv);
         try {
             FileWriter outputfile = new FileWriter(file);
             CSVWriter writer = new CSVWriter(outputfile);
-            String[] header = { "Address-book Name","First Name", "Last Name", "Address", "City", "State", "Zip", "Phone Number", "Email" };
+            String[] header = {"Address-book Name", "First Name", "Last Name", "Address", "City", "State", "Zip", "Phone Number", "Email"};
             writer.writeNext(header);
-            for(String key :addressBookMap.keySet() ){
-                AddressBook addressBook= addressBookMap.get(key);
+            for (String key : addressBookMap.keySet()) {
+                AddressBook addressBook = addressBookMap.get(key);
                 addressBook.getAddressBookList().forEach(contact -> {
-                    String[] data = { key, contact.getFirstName(),contact.getLastName(),contact.getAddress(),contact.getCity(),contact.getState(),contact.getZip(),contact.getPhoneNumber(),contact.getEmail()};
+                    String[] data = {key, contact.getFirstName(), contact.getLastName(), contact.getAddress(), contact.getCity(), contact.getState(), contact.getZip(), contact.getPhoneNumber(), contact.getEmail()};
                     writer.writeNext(data);
                 });
             }
             writer.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -126,7 +138,7 @@ public class AddressBookFolder {
 
     public void viewContactsByCityOrStateMap() {
         System.out.println("1. City \n2. State\n\nChoose option for view contacts :");
-        int choice=sc.nextInt();
+        int choice = sc.nextInt();
         cityContactMap = addressBookMap.values()
                 .stream()
                 .flatMap(addressBook -> addressBook.getAddressBookList().stream())
@@ -135,12 +147,13 @@ public class AddressBookFolder {
     }
 
     private Collector<Contact, ?, Map<String, List<Contact>>> getcCityOrStateContactCollector(int choice) {
-        if (choice==CITY){
-           return Collectors.groupingBy(contact -> contact.getCity());
-        }if (choice==STATE){
+        if (choice == CITY) {
+            return Collectors.groupingBy(contact -> contact.getCity());
+        }
+        if (choice == STATE) {
             return Collectors.groupingBy(contact -> contact.getState());
         }
-       return null;
+        return null;
     }
 
     public void showAllContactByCityOrState() {
@@ -148,10 +161,10 @@ public class AddressBookFolder {
         int item = sc.nextInt();
         if (item == CITY) {
             System.out.println("enter Name of City : ");
-        } if (item == STATE) {
-            System.out.println("enter Name of State : ");
         }
-        else {
+        if (item == STATE) {
+            System.out.println("enter Name of State : ");
+        } else {
             System.out.println("invalid input");
         }
         String itemName = sc.next();
