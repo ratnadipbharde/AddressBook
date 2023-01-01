@@ -1,23 +1,61 @@
+import com.google.gson.Gson;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 
 public class AddressBookFolder {
     static final int EXISTINGADDRESSBOOK = 1;
     static final int NEWADDRESSBOOK = 2;
+    static final int CITY=1;
+    static final int STATE=2;
+
     private Map<String, AddressBook> addressBookMap = new HashMap<>();
+    private Map<String, List<Contact>> cityContactMap = new HashMap<>();
     Scanner sc = new Scanner(System.in);
 
+    public void viewContactsByCityOrStateMap() {
+        System.out.println("1. City \n2. State\n\nChoose option for view contacts :");
+        int choice=sc.nextInt();
+        cityContactMap = addressBookMap.values()
+                .stream()
+                .flatMap(addressBook -> addressBook.getAddressBookList().stream())
+                .collect(getcCityOrStateContactCollector(choice));
+        cityContactMap.forEach((key, contacts) -> System.out.println("Contacts of '" + key + "' City : " + contacts + ""));
+    }
+
+    private Collector<Contact, ?, Map<String, List<Contact>>> getcCityOrStateContactCollector(int choice) {
+        if (choice==CITY){
+           return Collectors.groupingBy(contact -> contact.getCity());
+        }if (choice==STATE){
+            return Collectors.groupingBy(contact -> contact.getState());
+        }
+       return null;
+    }
+
     public void showAllContactByCityOrState() {
-        System.out.print("1. City \n2. State\n\nChoose option for search : ");
+        System.out.print("1. City \n2. State\n\nChoose option for show contact by city or state : ");
         int item = sc.nextInt();
-        if (item == 1) {
+        if (item == CITY) {
             System.out.println("enter Name of City : ");
-        } else {
+        } if (item == STATE) {
             System.out.println("enter Name of State : ");
         }
+        else {
+            System.out.println("invalid input");
+        }
         String itemName = sc.next();
-        for (AddressBook addressBook : addressBookMap.values()) {
-            addressBook.getAddressBookList().stream().filter(predicateForCityOrState(item, itemName)).forEach(System.out::println);
+        for (AddressBook addressBook : addressBookMap.values()) {//**
+            addressBook.getAddressBookList()
+                    .stream()
+                    .filter(predicateForCityOrState(item, itemName))
+                    .forEach(contact -> System.out.println(contact));
         }
     }
 
@@ -32,9 +70,7 @@ public class AddressBookFolder {
     public void editAddressBook() {
         System.out.println("Enter Name : ");
         String fName = sc.next();
-        addressBookMap.values().forEach(addressBook -> {
-                addressBook.editContact(fName);
-        });
+        addressBookMap.values().forEach(addressBook -> addressBook.editContact(fName));
     }
 
     public void deleteAddressBook() {
@@ -71,19 +107,27 @@ public class AddressBookFolder {
                 }
                 AddressBook addressBook1 = addressBookMap.get(bookName);
                 addressBook1.addContact(firstName);
-
                 break;
             case NEWADDRESSBOOK:
-                System.out.print("Enter New Address Book Name  : ");
-                String name = sc.next();
-                System.out.print("First Name : ");
-                firstName = sc.next();
-                if (contactIsExist(firstName)) {
-                    return;
-                } else {
-                    AddressBook addressBook = new AddressBook();
-                    addressBook.addContact(firstName);
-                    addressBookMap.put(name, addressBook);
+                System.out.println("how many addressbook create : ");
+                int numberOfBook = sc.nextInt();
+                for (int i = 0; i < numberOfBook; i++) {
+                    System.out.print("Enter New Address Book Name  : ");
+                    String name = sc.next();
+                    System.out.println("How many contacts : ");
+                    int numberOfContacts = sc.nextInt();
+                    for (int j = 0; i < numberOfContacts; i++) {
+                        System.out.print("First Name : ");
+                        firstName = sc.next();
+                        if (contactIsExist(firstName)) {
+                            i--;
+                            break;
+                        } else {
+                            AddressBook addressBook = new AddressBook();
+                            addressBook.addContact(firstName);
+                            addressBookMap.put(name, addressBook);
+                        }
+                    }
                 }
             default:
                 System.out.println("invallid input");
@@ -92,11 +136,13 @@ public class AddressBookFolder {
     }
 
     public boolean contactIsExist(String firstName) {
+        boolean result = false;
         for (AddressBook addressBook : addressBookMap.values()) {
-            System.out.println("Contact already exist...");
-            return addressBook.getAddressBookList().stream().anyMatch(contact -> contact.getFirstName().equals(firstName));
+            result = addressBook.getAddressBookList().stream().anyMatch(contact -> contact.getFirstName().equals(firstName));
         }
-        return false;
+        if (result == true)
+            System.out.println("Contact already exist...");
+        return result;
     }
 
     public void showAddressbook() {
