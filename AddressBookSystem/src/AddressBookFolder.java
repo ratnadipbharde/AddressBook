@@ -138,7 +138,7 @@ public class AddressBookFolder {
     public void getNumberOfCountPersonByCityOrState() {
         System.out.print("1. City \n2. State\n\nChoose option for show contact by city or state : ");
         int item = sc.nextInt();
-        if (item == CITY) {
+        if (item == CITY)  {
             System.out.println("enter Name of City : ");
         }
         if (item == STATE) {
