@@ -135,6 +135,25 @@ public class AddressBookFolder {
         }
     }
 
+    public void getNumberOfCountPersonByCityOrState() {
+        System.out.print("1. City \n2. State\n\nChoose option for show contact by city or state : ");
+        int item = sc.nextInt();
+        if (item == CITY) {
+            System.out.println("enter Name of City : ");
+        }
+        if (item == STATE) {
+            System.out.println("enter Name of State : ");
+        }
+        String itemName = sc.next();
+        long count=0;
+        for (AddressBook addressBook : addressBookMap.values()) {
+            count = addressBook.getAddressBookList()
+                    .stream()
+                    .filter(predicateForCityOrState(item, itemName))
+                    .count();
+        }
+        System.out.println("count is : "+count);
+    }
 
     public void viewContactsByCityOrStateMap() {
         System.out.println("1. City \n2. State\n\nChoose option for view contacts :");
